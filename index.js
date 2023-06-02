@@ -17,7 +17,7 @@ app.use(userRouter);
 mongoose.connect(DD).then(()=>{
     console.log("Connection Successfull");
 }).catch((e)=>{
-    console.log(e);
+    console.log("connection error = " + e);
 })
 app.listen(PORT, "0.0.0.0", ()=>{
     console.log(`connected at port ${PORT}`);
