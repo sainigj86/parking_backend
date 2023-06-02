@@ -7,7 +7,7 @@ const userRouter = require("./routes/user");
 
 const PORT = 4000;
 const app = express();
-const DD = "mongodb://127.0.0.1:27017/allusers";
+const DD = "mongodb+srv://sainigj86:bcpPXl6cb69ZPGXN@test-pro-db.msxaqka.mongodb.net/test?retryWrites=true&w=majority";
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
