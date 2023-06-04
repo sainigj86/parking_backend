@@ -1,34 +1,34 @@
 const express = require('express');
 const productRouter = express.Router();
 const auth = require('../middlewares/auth');
-const {Product} = require('../model/product');
+const { Product } = require('../model/product');
 
 
 //get all your products
 
-productRouter.get("/api/products/", auth, async(req, res)=>{
-    try{
-        console.log(req.query.category);
-        const products = await Product.find({category: req.query.category});
-        res.json(products);
-    }catch(e){
-        res.status.json({error: e.message});
-    }
+productRouter.get("/api/products/", auth, async (req, res) => {
+  try {
+    console.log(req.query.category);
+    const products = await Product.find({ category: req.query.category });
+    res.json(products);
+  } catch (e) {
+    res.status.json({ error: e.message });
+  }
 });
 
 // create a get request to search products and get them
 // /api/products/search/i
 productRouter.get("/api/products/search/:name", auth, async (req, res) => {
-    try {
-      const products = await Product.find({
-        name: { $regex: req.params.name, $options: "i" },
-      });
-  
-      res.json(products);
-    } catch (e) {
-      res.status(500).json({ error: e.message });
-    }
-  });
+  try {
+    const products = await Product.find({
+      name: { $regex: req.params.name, $options: "i" },
+    });
+
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 // create a post request route to rate the product.
 productRouter.post("/api/rate-product", auth, async (req, res) => {
@@ -59,7 +59,7 @@ productRouter.post("/api/rate-product", auth, async (req, res) => {
 productRouter.get("/api/deal-of-day", auth, async (req, res) => {
   try {
     let products = await Product.find({});
-
+    //  console.log("bbb = " + JSON.stringify(products))
     products = products.sort((a, b) => {
       let aSum = 0;
       let bSum = 0;
@@ -74,7 +74,7 @@ productRouter.get("/api/deal-of-day", auth, async (req, res) => {
       return aSum < bSum ? 1 : -1;
     });
 
-    res.json(products[0]);
+    res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
