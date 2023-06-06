@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { productSchema } = require("./product");
 
 const userSchema = mongoose.Schema({
   name: {
@@ -20,28 +19,15 @@ const userSchema = mongoose.Schema({
       message: "Please enter a valid email address",
     },
   },
+  mobile:{
+    required: true,
+    type: Number
+  },
   password: {
     required: true,
     type: String,
   },
-  address: {
-    type: String,
-    default: "",
-  },
-  type: {
-    type: String,
-    // default: "",
-  },
-  cart: [   
-    {
-      product: productSchema,
-      quantity: {
-        type: Number,
-        required: true,
-      }
-    },
-  ],
 });
 
-const User = mongoose.model("Mydetails", userSchema);
+const User = mongoose.model("Admin", userSchema);
 module.exports = User;
