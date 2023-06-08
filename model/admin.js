@@ -27,6 +27,9 @@ const userSchema = mongoose.Schema({
     required: true,
     type: String,
   },
+  type: {
+    type: String,
+  },
 });
 
 const Admin = mongoose.model("admins", userSchema);
