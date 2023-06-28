@@ -3,31 +3,31 @@ const Admin = require("../model/admin");
 
 const adminRouter = express.Router();
 
-adminRouter.post("/signup-admin", async (req, res) => {
-  try {
-    const { name, email, mobile, password } = req.body;
+// adminRouter.post("/signup-admin", async (req, res) => {
+//   try {
+//     const { name, email, mobile, password } = req.body;
 
-    const existingUser = await Admin.findOne({ email });
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ msg: "admin with same email already exists!" });
-    }
+//     const existingUser = await Admin.findOne({ email });
+//     if (existingUser) {
+//       return res
+//         .status(400)
+//         .json({ msg: "admin with same email already exists!" });
+//     }
 
-    // const hashedPassword = await bcryptjs.hash(password, 8);
+//     // const hashedPassword = await bcryptjs.hash(password, 8);
 
-    let admin = new Admin({
-      name,
-      email,
-      mobile,
-      password,
-    });
-    admin = await admin.save();
-    res.json(admin);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
+//     let admin = new Admin({
+//       name,
+//       email,
+//       mobile,
+//       password,
+//     });
+//     admin = await admin.save();
+//     res.json(admin);
+//   } catch (e) {
+//     res.status(500).json({ error: e.message });
+//   }
+// });
 
 adminRouter.post("/signin-admin", async (req, res) => {
   try {
