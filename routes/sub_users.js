@@ -7,12 +7,13 @@ const subUsersRouter = express.Router();
 
 subUsersRouter.post("/sub_Users_Details", async (req, res) => {
   try {
-    const { vehicle } = req.body;
+    const { plateNumber } = req.body;
     const currentTime = new Date().toLocaleString();
-
+    const status = 0;
     let subUser = new subUsers({
-      vehicle,
+      plateNumber,
       currentTime,
+      status
     });
     subUser = await subUser.save();
     res.json(subUser);
@@ -21,10 +22,10 @@ subUsersRouter.post("/sub_Users_Details", async (req, res) => {
   }
 });
 
-subUsersRouter.get("/vehicle", async (req, res) => {
+subUsersRouter.post("/get_Exit_users", async (req, res) => {
   try {
-    const { vehicle } = req.body;
-    const user = await subUsers.findOne({ vehicle: vehicle });
+    const { plateNumber } = req.body;
+    const user = await subUsers.findOne({ plateNumber: plateNumber });
     if (user) {
       let time = 1;
       // Parse user.currentTime string into a Date object
@@ -57,15 +58,15 @@ subUsersRouter.get("/vehicle", async (req, res) => {
         time = time * 10;
       }
 
-      await subUsers.deleteOne({vehicle:vehicle});
+      // await subUsers.deleteOne({vehicle:vehicle});
 
-      let exitUser = new exitUsers({
-        vehicle : user.vehicle,
-        currentTime:new Date().toLocaleString(),
-        vehicleId:user._id
-      });
+      // let exitUser = new exitUsers({
+      //   vehicle : user.vehicle,
+      //   currentTime:new Date().toLocaleString(),
+      //   vehicleId:user._id
+      // });
 
-      await exitUser.save();
+      // await exitUser.save();
 
       return res.status(200).json({ Rent: time, "user":user });
     } else {
