@@ -13,7 +13,7 @@ subUsersRouter.post("/sub_Users_Details", async (req, res) => {
     let subUser = new subUsers({
       plateNumber,
       currentTime,
-      status
+      status,
     });
     subUser = await subUser.save();
     res.json(subUser);
@@ -50,7 +50,7 @@ subUsersRouter.post("/get_Exit_users", async (req, res) => {
       let diff = Math.abs(currentTime - userTime) / 1000; // Difference in seconds
       diff /= 60 * 60; // Difference in hours
 
-      console.log(diff);
+      console.log("time_different = " + diff);
 
       if (diff > 0) {
         time = time * 10 * diff;
@@ -58,17 +58,7 @@ subUsersRouter.post("/get_Exit_users", async (req, res) => {
         time = time * 10;
       }
 
-      // await subUsers.deleteOne({vehicle:vehicle});
-
-      // let exitUser = new exitUsers({
-      //   vehicle : user.vehicle,
-      //   currentTime:new Date().toLocaleString(),
-      //   vehicleId:user._id
-      // });
-
-      // await exitUser.save();
-
-      return res.status(200).json({ Rent: time, "user":user });
+      return res.status(200).json({ Rent: time, user: user });
     } else {
       return res.status(400).json({ error: "User not found" });
     }
